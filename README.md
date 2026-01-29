@@ -1,15 +1,27 @@
-# Government Website Navigation Chatbot
+# Tamil Nadu Government Services Chatbot 🤖
 
-A fully functional, private chatbot system for navigating complex Indian government websites with Tamil language support. Built without external LLM APIs for complete data privacy.
+A fully functional, privacy-focused chatbot for navigating Tamil Nadu government websites. Works completely offline with no external LLM APIs.
 
-## Features
+## 🚀 Quick Start
 
-- **100% Private**: No external API calls, all processing happens locally
-- **Tamil Language Support**: Natural language processing for Tamil and English
-- **Government Website Navigation**: Specialized for Indian government portals
-- **Smart Search**: Intent recognition and context-aware responses
-- **Knowledge Base**: Vector-based document retrieval
-- **Web Interface**: User-friendly chat interface
+**For complete setup instructions, see:** [SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.md)
+
+**TL;DR:**
+1. Download/clone this repo
+2. Install: `pip install -r requirements.txt`
+3. Build index: `python knowledge_base/build_index.py`
+4. Start server: `python app.py`
+5. Load `browser_extension` folder in Chrome/Edge
+6. Visit any TN govt website and chat!
+
+## ✨ Features
+
+- 🔒 **100% Private** - No external API calls, all processing happens locally
+- 🌏 **Bilingual Support** - Tamil and English language processing
+- 🎯 **Smart Intent Detection** - Understands apply, download, status check, documents, fees, etc.
+- 💬 **Conversational AI** - Context-aware responses with follow-up question handling
+- 🌐 **Browser Extension** - Floating chat widget on TN government websites
+- ⚡ **Lightweight** - Uses TF-IDF embeddings instead of heavy ML models
 
 ## Architecture
 
