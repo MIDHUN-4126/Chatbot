@@ -1,0 +1,133 @@
+# Government Website Navigation Chatbot Configuration
+
+# Application Settings
+app:
+  name: "Tamil Nadu Government Portal Assistant"
+  version: "1.0.0"
+  host: "localhost"
+  port: 5000
+  debug: true
+
+# Language Settings
+languages:
+  primary: "tamil"
+  secondary: "english"
+  supported: ["tamil", "english", "hindi"]
+  
+# NLP Models Configuration
+nlp:
+  # Tamil Language Model
+  tamil_model: "ai4bharat/indic-bert"
+  
+  # English Language Model
+  english_model: "en_core_web_sm"
+  
+  # Sentence Transformers for Embeddings
+  embedding_model: "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+  
+  # Intent Classification
+  intent_model: "local"  # Using local model, not API
+  
+  # Maximum tokens for processing
+  max_tokens: 512
+
+# Vector Store Configuration
+vector_store:
+  type: "faiss"
+  dimension: 768
+  index_type: "IVF"
+  nprobe: 10
+  similarity_metric: "cosine"
+  
+# Knowledge Base
+knowledge_base:
+  path: "./data/knowledge_base"
+  chunk_size: 512
+  chunk_overlap: 50
+  max_chunks: 5
+  
+# Web Scraping Configuration
+scraping:
+  # Government Websites to Scrape
+  websites:
+    - name: "Tamil Nadu Government Portal"
+      url: "https://www.tn.gov.in"
+      depth: 3
+      
+    - name: "Tamil Nadu e-District"
+      url: "https://www.tnedistrict.gov.in"
+      depth: 2
+      
+    - name: "TNSDC - Tamil Nadu Skill Development"
+      url: "https://www.tnskdc.org"
+      depth: 2
+      
+    - name: "Tamil Nadu Police"
+      url: "https://www.tnpolice.gov.in"
+      depth: 2
+      
+    - name: "Tamil Nadu Public Service Commission"
+      url: "https://www.tnpsc.gov.in"
+      depth: 3
+  
+  # Scraping Settings
+  delay: 2  # seconds between requests
+  timeout: 30
+  max_retries: 3
+  user_agent: "GovBot/1.0 (Educational Purpose)"
+  respect_robots_txt: true
+  
+# Chat Settings
+chat:
+  # Response Settings
+  max_response_length: 500
+  context_window: 5  # Number of previous messages to consider
+  
+  # Confidence Thresholds
+  min_confidence: 0.6
+  high_confidence: 0.85
+  
+  # Default Responses
+  fallback_response: "என்னால் உங்கள் கேள்விக்கு பதிலளிக்க முடியவில்லை. தயவுசெய்து வேறு வகையில் கேட்கவும். (I couldn't understand your question. Please rephrase.)"
+  
+  greeting_responses:
+    - "வணக்கம்! நான் உங்களுக்கு எப்படி உதவ முடியும்? (Hello! How can I help you?)"
+    - "வணக்கம்! தமிழ்நாடு அரசு சேவைகள் பற்றி நான் உதவ தயாராக உள்ளேன். (Hello! I'm ready to help with Tamil Nadu government services.)"
+
+# Intent Categories
+intents:
+  - name: "service_inquiry"
+    keywords: ["சேவை", "service", "apply", "விண்ணப்பிக்க"]
+    
+  - name: "document_requirement"
+    keywords: ["ஆவணம்", "document", "certificate", "சான்றிதழ்"]
+    
+  - name: "procedure"
+    keywords: ["எப்படி", "how to", "procedure", "செயல்முறை"]
+    
+  - name: "contact_info"
+    keywords: ["தொடர்பு", "contact", "phone", "email"]
+    
+  - name: "status_check"
+    keywords: ["நிலை", "status", "track", "கண்காணிக்க"]
+    
+  - name: "eligibility"
+    keywords: ["தகுதி", "eligibility", "eligible", "யோக்கியதை"]
+
+# Database Configuration
+database:
+  type: "sqlite"
+  path: "./data/chatbot.db"
+  
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "./logs/chatbot.log"
+  max_size: "10MB"
+  backup_count: 5
+  
+# Security
+security:
+  encrypt_data: false  # Set to true for production
+  rate_limit: 60  # requests per minute
+  session_timeout: 3600  # seconds

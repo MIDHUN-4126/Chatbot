@@ -1,0 +1,30 @@
+# Core Dependencies
+flask>=3.0.0
+flask-cors>=4.0.0
+python-dotenv>=1.0.0
+
+# NLP and ML - Updated for Python 3.14 compatibility
+torch>=2.9.0
+transformers>=4.36.0
+sentence-transformers>=2.2.2
+nltk>=3.8.1
+
+# Vector Store and Search
+faiss-cpu>=1.7.4
+numpy>=1.26.2
+
+# Web Scraping
+beautifulsoup4>=4.12.2
+requests>=2.31.0
+lxml>=4.9.3
+
+# Data Processing
+pandas>=2.1.4
+
+# Utilities
+pyyaml>=6.0.1
+tqdm>=4.66.1
+langdetect>=1.0.9
+
+# Text Processing
+regex>=2023.10.3

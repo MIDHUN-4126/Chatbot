@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Tamil Nadu Government Assistant",
+  "version": "1.0.0",
+  "description": "AI-powered assistant for Tamil Nadu government services - தமிழ்நாடு அரசு சேவைகள் உதவியாளர்",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.tn.gov.in/*",
+        "*://*.tnedistrict.gov.in/*",
+        "*://*.tnpsc.gov.in/*",
+        "*://*.tnpolice.gov.in/*",
+        "*://*.tnskdc.org/*",
+        "*://*.tnpds.gov.in/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
+      "js": ["content.js"],
+      "css": ["widget.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tamil Nadu Govt Assistant"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["widget.html"],
+      "matches": [
+        "*://*.tn.gov.in/*",
+        "*://*.tnedistrict.gov.in/*",
+        "*://*.tnpsc.gov.in/*",
+        "*://*.tnpolice.gov.in/*",
+        "*://*.tnskdc.org/*",
+        "*://*.tnpds.gov.in/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ]
+    }
+  ]
+}
