@@ -51,12 +51,6 @@ function createChatWidget() {
       </div>
     </div>
     
-    <div class="tn-chatbot-quick-replies" id="tn-quick-replies">
-      <button class="tn-quick-reply">பிறப்பு சான்றிதழ்</button>
-      <button class="tn-quick-reply">Income Certificate</button>
-      <button class="tn-quick-reply">Documents needed</button>
-    </div>
-    
     <div class="tn-chatbot-input-container">
       <div class="tn-chatbot-typing" id="tn-typing-indicator" style="display: none;">
         <span></span><span></span><span></span>
@@ -86,14 +80,6 @@ function createChatWidget() {
   document.getElementById('tn-chatbot-send-btn').addEventListener('click', sendMessage);
   document.getElementById('tn-chatbot-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
-  });
-  
-  // Quick reply buttons
-  document.querySelectorAll('.tn-quick-reply').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.getElementById('tn-chatbot-input').value = btn.textContent;
-      sendMessage();
-    });
   });
 }
 
