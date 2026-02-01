@@ -163,6 +163,9 @@ function formatBotMessage(text) {
   // Convert line breaks to <br>
   let formatted = escapeHtml(text).replace(/\n/g, '<br>');
   
+  // Make bold text (Markdown style: **text**)
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
   // Make emojis and bullets stand out
   formatted = formatted.replace(/•/g, '<span style="color: #667eea;">•</span>');
   
