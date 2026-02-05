@@ -72,7 +72,7 @@ def get_chatbot():
     return chatbot
 
 
-def get_gemini_navigation_response(user_message, context=""):
+def get_gemini_navigation_response(user_message, context="", page_content="", user_name="User", image_data=None):
     """Get Gemini-powered response for website navigation"""
     if not gemini_model:
         print("⚠ Gemini model not initialized")
@@ -82,16 +82,25 @@ def get_gemini_navigation_response(user_message, context=""):
         # Create a prompt specifically for TN e-Sevai website navigation
         prompt = f"""You are an expert assistant for the Tamil Nadu e-Sevai Portal (https://www.tnesevai.tn.gov.in/).
 
+User Name: {user_name}
+
 Website Context:
 - TN e-Sevai is the official Tamil Nadu Government online services portal
 - Provides government certificates and services online
 - Services include: Birth Certificate, Income Certificate, Community Certificate, Ration Card, etc.
 - Users need to login or register to apply for services
 
+Current Page Content:
+{page_content[:2000] if page_content else "Not available"}
+
 User's question: {user_message}
 
 Knowledge base context: {context}
+"""
+        if image_data:
+             prompt += "\n\n[User has provided an image to assist with the query]"
 
+        prompt += """
 Your task as a website navigation assistant:
 1. Guide users on how to navigate the TN e-Sevai website
 2. Explain step-by-step where to click and what to do
@@ -112,9 +121,29 @@ Provide a helpful, conversational response with specific navigation instructions
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         
         headers = {'Content-Type': 'application/json'}
+        
+        # Construct message parts
+        parts = [{"text": prompt}]
+        
+        if image_data:
+            # Parse data URI: data:image/png;base64,....
+            try:
+                header, base64_str = image_data.split(',', 1)
+                mime_type = header.split(':')[1].split(';')[0]
+                
+                parts.append({
+                    "inline_data": {
+                        "mime_type": mime_type,
+                        "data": base64_str
+                    }
+                })
+                print(f"✓ Added image to request ({mime_type})")
+            except Exception as e:
+                print(f"⚠ Error parsing image data: {e}")
+
         data = {
             "contents": [{
-                "parts": [{"text": prompt}]
+                "parts": parts
             }]
         }
         
@@ -155,6 +184,8 @@ def chat():
     try:
         data = request.get_json()
         user_message = data.get('message', '').strip()
+        page_content = data.get('page_content', '')
+        user_name = data.get('user_name', 'User')
         
         if not user_message:
             return jsonify({
@@ -184,7 +215,7 @@ def chat():
                 print(f"⚠ Could not get local context: {e}")
             
             # Let Gemini handle everything
-            gemini_response = get_gemini_navigation_response(user_message, context)
+            gemini_response = get_gemini_navigation_response(user_message, context, page_content, user_name)
             
             if gemini_response:
                 print(f"✓ Gemini handled query: {user_message[:50]}...")

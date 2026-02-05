@@ -30,13 +30,23 @@
       "run_at": "document_end"
     }
   ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "action": {
     "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
     "default_title": "Tamil Nadu Govt Assistant"
   },
   "web_accessible_resources": [
     {
-      "resources": ["widget.html"],
+      "resources": ["widget.html", "icons/icon-16.png", "icons/icon-48.png", "icons/icon-128.png"],
       "matches": [
         "*://*.tn.gov.in/*",
         "*://*.tnedistrict.gov.in/*",
